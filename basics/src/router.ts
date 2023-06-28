@@ -1,7 +1,13 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
-import { createProduct, getProducts } from "./handlers/product";
+import {
+  createProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updateProduct,
+} from "./handlers/product";
 
 // TODO: Look at using Joi.
 const router = Router();
@@ -10,14 +16,20 @@ const router = Router();
  * Product
  */
 router.get("/product", getProducts);
-router.get("/product/:id", () => {});
+router.get("/product/:id", getProduct);
 router.put(
   "/product/:id",
-  [body("name").isString(), handleInputErrors],
-  (req, res) => {}
+  body("name").isString(),
+  handleInputErrors,
+  updateProduct
 );
-router.post("/product", body("name").isString(), handleInputErrors, createProduct);
-router.delete("/product/:id", () => {});
+router.post(
+  "/product",
+  body("name").isString(),
+  handleInputErrors,
+  createProduct
+);
+router.delete("/product/:id", deleteProduct);
 
 /**
  * Update
