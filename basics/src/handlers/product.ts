@@ -63,5 +63,5 @@ export const deleteProduct = async (req, res) => {
         }
     });
 
-    req.json({ data: product });
+    res.json({ data: product });
 }
